@@ -6,3 +6,20 @@
  */
 export const ArrayIteratorPrototype: IterableIterator<unknown> = Object
   .getPrototypeOf([][Symbol.iterator]());
+
+// TODO: %ArrayIteratorPrototype%
+// TODO: %AsyncFromSyncIteratorPrototype%
+// TODO: %AsyncFunction%
+// TODO: %AsyncGeneratorFunction%
+// TODO: %AsyncGeneratorPrototype%
+// TODO: %AsyncIteratorPrototype%
+// TODO: %ForInIteratorPrototype%
+// TODO: %GeneratorFunction%
+// TODO: %GeneratorPrototype%
+// TODO: %IteratorPrototype%
+// TODO: %MapIteratorPrototype%
+// TODO: %RegExpStringIteratorPrototype%
+// TODO: %SetIteratorPrototype%
+// TODO: %StringIteratorPrototype%
+// TODO: %ThrowTypeError%
+// TODO: %TypedArray%

@@ -1,10 +1,4 @@
-import {
-  assert,
-  assertArrayIncludes,
-  assertEquals,
-  assertExists,
-  assertInstanceOf,
-} from "@std/assert";
+import { assertArrayIncludes, assertInstanceOf } from "@std/assert";
 import { ArrayIteratorPrototype } from "./intrinsics.ts";
 import { dummyConstructor } from "./utils.ts";
 
