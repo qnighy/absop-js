@@ -1,4 +1,21 @@
 /**
+ * 6.1 ECMAScript Language Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types
+ *
+ * > An ECMAScript language value is a value that is characterized by an ECMAScript language type.
+ */
+export type LanguageValue = unknown;
+
+/**
+ * 6.1 ECMAScript Language Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types
+ *
+ * > An ECMAScript language value is a value that is characterized by an ECMAScript language type.
+ */
+export type WrappedLanguageValue<T extends LanguageValue = LanguageValue> = {
+  type: "LanguageValue";
+  value: T;
+};
+
+/**
  * 6.1.1 The Undefined Type https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types-undefined-type
  *
  * > The Undefined type has exactly one value, called undefined.
@@ -92,5 +109,6 @@ export function isBigInt(value: unknown): value is bigint {
  */
 export function isObject(value: unknown): value is object {
   // Use typeof https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-typeof-operator-runtime-semantics-evaluation
-  return typeof value === "object" && value !== null;
+  return (typeof value === "object" || typeof value === "function") &&
+    value !== null;
 }

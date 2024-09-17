@@ -15,7 +15,11 @@ export {
   isSymbol,
   // 6.1.1 The Undefined Type
   isUndefined,
-} from "./typeof.ts";
+  // 6.1 ECMAScript Language Types
+  type LanguageValue,
+  // 6.1 ECMAScript Language Types
+  type WrappedLanguageValue,
+} from "./langtypes.ts";
 export {
   // In 6.1.7, property key
   isPropertyKey,
