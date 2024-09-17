@@ -21,10 +21,6 @@ export {
   type WrappedLanguageValue,
 } from "./langtypes.ts";
 export {
-  // In 6.1.7, property key
-  IsPropertyKey,
-  // In 6.1.7, property name
-  IsPropertyName,
   // 6.1.4.1 StringIndexOf
   StringIndexOf,
   // 6.1.4.2 StringLastIndexOf
@@ -72,3 +68,9 @@ export {
   // 6.1.6.1.16 NumberBitwiseOp
   NumberBitwiseOp,
 } from "./number.ts";
+export {
+  // In 6.1.7, property key
+  isPropertyKey,
+  // In 6.1.7, property name
+  isPropertyName,
+} from "./object.ts";

@@ -1,7 +1,6 @@
 import { toObject, toPropertyKey } from "./cast.ts";
 import { type LanguageValue, type WrappedLanguageValue } from "./langtypes.ts";
-import { type StrictPropertyKey } from "./object.ts";
-import { IsPropertyKey } from "./string.ts";
+import { isPropertyKey, type StrictPropertyKey } from "./object.ts";
 
 export type SpecValue = unknown;
 
@@ -107,7 +106,7 @@ export function GetValue(
       throw new Error("TODO: PrivateName");
     }
     let referencedName = v.referencedName.value;
-    if (!IsPropertyKey(referencedName)) {
+    if (!isPropertyKey(referencedName)) {
       v.referencedName.value = referencedName = toPropertyKey(referencedName);
     }
     return Reflect.get(

@@ -32,21 +32,3 @@ export function StringLastIndexOf(
   const idx = string.lastIndexOf(searchValue, fromIndex);
   return idx === -1 ? "NOT-FOUND" : idx;
 }
-
-/**
- * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ispropertykey
- *
- * > A property key is either a String or a Symbol.
- */
-export function IsPropertyKey(value: unknown): value is StrictPropertyKey {
-  return typeof value === "string" || typeof value === "symbol";
-}
-
-/**
- * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#property-name
- *
- * > A property name is a property key that is a String.
- */
-export function IsPropertyName(value: unknown): value is string {
-  return typeof value === "string";
-}
