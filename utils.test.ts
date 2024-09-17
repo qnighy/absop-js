@@ -1,4 +1,4 @@
-import { assertEquals, assert } from "@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import { dummyConstructor } from "./utils.ts";
 
 Deno.test("dummyConstructor", () => {
@@ -9,4 +9,3 @@ Deno.test("dummyConstructor", () => {
   obj.foo = 43;
   assertEquals(instance.foo, 43);
 });
-
