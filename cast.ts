@@ -1,5 +1,5 @@
 import { isObject, type LanguageValue } from "./langtypes.ts";
-import { call, getMethod, type StrictPropertyKey } from "./object.ts";
+import { Call, GetMethod, type StrictPropertyKey } from "./object.ts";
 
 export type Primitive =
   | undefined
@@ -10,19 +10,19 @@ export type Primitive =
   | number
   | bigint;
 
-export function toPrimitive(
+export function ToPrimitive(
   input: LanguageValue,
   preferredType?: "STRING" | "NUMBER" | undefined,
 ): Primitive {
   if (isObject(input)) {
-    const exoticToPrim = getMethod(input, Symbol.toPrimitive);
+    const exoticToPrim = GetMethod(input, Symbol.toPrimitive);
     if (exoticToPrim != null) {
       const hint = preferredType === "STRING"
         ? "string"
         : preferredType === "NUMBER"
         ? "number"
         : "default";
-      const result = call(
+      const result = Call(
         exoticToPrim as (this: unknown, hint: string) => unknown,
         input,
         [hint],
@@ -33,14 +33,14 @@ export function toPrimitive(
         return result as Primitive;
       }
     } else {
-      return ordinaryToPrimitive(input, preferredType ?? "NUMBER");
+      return OrdinaryToPrimitive(input, preferredType ?? "NUMBER");
     }
   } else {
     return input as Primitive;
   }
 }
 
-export function ordinaryToPrimitive(
+export function OrdinaryToPrimitive(
   o: object,
   hint: "STRING" | "NUMBER",
 ): Primitive {
@@ -50,7 +50,7 @@ export function ordinaryToPrimitive(
   for (const name of methodNames) {
     const method = o[name];
     if (typeof method === "function") {
-      const result = call(method, o);
+      const result = Call(method, o);
       if (!isObject(result)) {
         return result;
       }
@@ -67,6 +67,6 @@ export function toObject(argument: LanguageValue): object {
 }
 
 export function toPropertyKey(argument: LanguageValue): StrictPropertyKey {
-  const key = toPrimitive(argument, "STRING");
+  const key = ToPrimitive(argument, "STRING");
   return typeof key === "symbol" ? key : `${key}`;
 }

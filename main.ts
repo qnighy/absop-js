@@ -22,53 +22,53 @@ export {
 } from "./langtypes.ts";
 export {
   // In 6.1.7, property key
-  isPropertyKey,
+  IsPropertyKey,
   // In 6.1.7, property name
-  isPropertyName,
+  IsPropertyName,
   // 6.1.4.1 StringIndexOf
-  stringIndexOf,
+  StringIndexOf,
   // 6.1.4.2 StringLastIndexOf
-  stringLastIndexOf,
+  StringLastIndexOf,
 } from "./string.ts";
 export {
   // 6.1.6.1.7 Number::add
-  numberAdd,
+  Number_add,
   // 6.1.6.1.17 Number::bitwiseAND
-  numberBitwiseAND,
+  Number_bitwiseAND,
   // 6.1.6.1.2 Number::bitwiseNOT
-  numberBitwiseNOT,
-  // 6.1.6.1.16 NumberBitwiseOp
-  numberBitwiseOp,
+  Number_bitwiseNOT,
   // 6.1.6.1.19 Number::bitwiseOR
-  numberBitwiseOR,
+  Number_bitwiseOR,
   // 6.1.6.1.18 Number::bitwiseXOR
-  numberBitwiseXOR,
+  Number_bitwiseXOR,
   // 6.1.6.1.5 Number::divide
-  numberDivide,
+  Number_divide,
   // 6.1.6.1.13 Number::equal
-  numberEqual,
+  Number_equal,
   // 6.1.6.1.3 Number::exponentiate
-  numberExponentiate,
+  Number_exponentiate,
   // 6.1.6.1.9 Number::leftShift
-  numberLeftShift,
+  Number_leftShift,
   // 6.1.6.1.12 Number::lessThan
-  numberLessThan,
+  Number_lessThan,
   // 6.1.6.1.4 Number::multiply
-  numberMultiply,
+  Number_multiply,
   // 6.1.6.1.6 Number::remainder
-  numberRemainder,
+  Number_remainder,
   // 6.1.6.1.14 Number::sameValue
-  numberSameValue,
+  Number_sameValue,
   // 6.1.6.1.15 Number::sameValueZero
-  numberSameValueZero,
+  Number_sameValueZero,
   // 6.1.6.1.10 Number::signedRightShift
-  numberSignedRightShift,
+  Number_signedRightShift,
   // 6.1.6.1.8 Number::subtract
-  numberSubtract,
+  Number_subtract,
   // 6.1.6.1.20 Number::toString
-  numberToString,
+  Number_toString,
   // 6.1.6.1.1 Number::unaryMinus
-  numberUnaryMinus,
+  Number_unaryMinus,
   // 6.1.6.1.11 Number::unsignedRightShift
-  numberUnsignedRightShift,
+  Number_unsignedRightShift,
+  // 6.1.6.1.16 NumberBitwiseOp
+  NumberBitwiseOp,
 } from "./number.ts";

@@ -1,7 +1,7 @@
 import { toObject, toPropertyKey } from "./cast.ts";
 import { type LanguageValue, type WrappedLanguageValue } from "./langtypes.ts";
 import { type StrictPropertyKey } from "./object.ts";
-import { isPropertyKey } from "./string.ts";
+import { IsPropertyKey } from "./string.ts";
 
 export type SpecValue = unknown;
 
@@ -54,7 +54,7 @@ export type UnresolvableReferenceRecord = {
 /**
  * 6.2.5.1 IsPropertyReference ( V ) https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ispropertyreference
  */
-export function isPropertyReference(
+export function IsPropertyReference(
   v: ReferenceRecord,
 ): v is PropertyReferenceRecord {
   return v.base !== "UNRESOLVABLE" && v.base.type === "LanguageValue";
@@ -63,7 +63,7 @@ export function isPropertyReference(
 /**
  * 6.2.5.2 IsUnresolvableReference ( V ) https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-isunresolvablereference
  */
-export function isUnresolvableReference(
+export function IsUnresolvableReference(
   v: ReferenceRecord,
 ): v is UnresolvableReferenceRecord {
   return v.base === "UNRESOLVABLE";
@@ -72,7 +72,7 @@ export function isUnresolvableReference(
 /**
  * 6.2.5.3 IsSuperReference ( V ) https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-issuperreference
  */
-export function isSuperReference(
+export function IsSuperReference(
   v: ReferenceRecord,
 ): v is ReferenceRecord & { thisValue: WrappedLanguageValue } {
   return v.thisValue !== "EMPTY";
@@ -81,7 +81,7 @@ export function isSuperReference(
 /**
  * 6.2.5.4 IsPrivateReference ( V ) https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-isprivatereference
  */
-export function isPrivateReference(
+export function IsPrivateReference(
   v: ReferenceRecord,
 ): v is (PropertyReferenceRecord | UnresolvableReferenceRecord) & {
   referencedName: PrivateName;
@@ -92,7 +92,7 @@ export function isPrivateReference(
 /**
  * 6.2.5.5 GetValue ( V )
  */
-export function getValue(
+export function GetValue(
   v: ReferenceRecord | WrappedLanguageValue,
 ): LanguageValue {
   if (v.type === "LanguageValue") {
@@ -107,20 +107,20 @@ export function getValue(
       throw new Error("TODO: PrivateName");
     }
     let referencedName = v.referencedName.value;
-    if (!isPropertyKey(referencedName)) {
+    if (!IsPropertyKey(referencedName)) {
       v.referencedName.value = referencedName = toPropertyKey(referencedName);
     }
     return Reflect.get(
       baseObj,
       referencedName as StrictPropertyKey,
-      getThisValue(v),
+      GetThisValue(v),
     );
   } else {
     throw new Error("TODO: BindingValue");
   }
 }
 
-export function getThisValue(v: ReferenceRecord) {
+export function GetThisValue(v: ReferenceRecord) {
   throw new Error("TODO: getThisValue");
 }
 

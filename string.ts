@@ -1,7 +1,9 @@
+import { type StrictPropertyKey } from "./object.ts";
+
 /**
  * 6.1.4.1 StringIndexOf ( string, searchValue, fromIndex ) https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-stringindexof
  */
-export function stringIndexOf(
+export function StringIndexOf(
   string: string,
   searchValue: string,
   fromIndex: number,
@@ -19,7 +21,7 @@ export function stringIndexOf(
 /**
  * 6.1.4.2 StringLastIndexOf ( string, searchValue, fromIndex ) https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-stringlastindexof
  */
-export function stringLastIndexOf(
+export function StringLastIndexOf(
   string: string,
   searchValue: string,
   fromIndex: number,
@@ -36,7 +38,7 @@ export function stringLastIndexOf(
  *
  * > A property key is either a String or a Symbol.
  */
-export function isPropertyKey(value: unknown): value is string | symbol {
+export function IsPropertyKey(value: unknown): value is StrictPropertyKey {
   return typeof value === "string" || typeof value === "symbol";
 }
 
@@ -45,6 +47,6 @@ export function isPropertyKey(value: unknown): value is string | symbol {
  *
  * > A property name is a property key that is a String.
  */
-export function isPropertyName(value: unknown): value is string {
+export function IsPropertyName(value: unknown): value is string {
   return typeof value === "string";
 }
