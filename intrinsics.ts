@@ -4,6 +4,5 @@
 /**
  * 23.1.5.2 The %ArrayIteratorPrototype% Object https://tc39.es/ecma262/multipage/indexed-collections.html#sec-%arrayiteratorprototype%-object
  */
-// deno-lint-ignore no-explicit-any
-export const ArrayIteratorPrototype: IterableIterator<any> = Object
+export const ArrayIteratorPrototype: IterableIterator<unknown> = Object
   .getPrototypeOf([][Symbol.iterator]());
