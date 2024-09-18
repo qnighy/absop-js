@@ -1,5 +1,6 @@
 import { assertEquals, assertStrictEquals, assertThrows } from "@std/assert";
 import {
+  CanonicalNumericIndexString,
   ToBigInt,
   ToIntegerOrInfinity,
   ToNumber,
@@ -297,4 +298,46 @@ Deno.test("ToObject fails on null and undefined", () => {
     TypeError,
     "Cannot convert undefined or null to object",
   );
+});
+
+Deno.test("CanonicalNumericIndexString base case", () => {
+  assertEquals(CanonicalNumericIndexString("42"), 42);
+  assertEquals(CanonicalNumericIndexString("1.5"), 1.5);
+  assertStrictEquals(CanonicalNumericIndexString("0"), 0);
+  assertEquals(CanonicalNumericIndexString("-2.3"), -2.3);
+});
+
+Deno.test("CanonicalNumericIndexString minus zero", () => {
+  assertStrictEquals(CanonicalNumericIndexString("-0"), -0);
+});
+
+Deno.test("CanonicalNumericIndexString noncanonical", () => {
+  assertEquals(CanonicalNumericIndexString("1.0"), undefined);
+  assertEquals(CanonicalNumericIndexString("1.50"), undefined);
+  assertEquals(CanonicalNumericIndexString("0.0000001"), undefined);
+  assertEquals(CanonicalNumericIndexString("01"), undefined);
+  assertEquals(CanonicalNumericIndexString("0x1"), undefined);
+  assertEquals(CanonicalNumericIndexString("1e-3"), undefined);
+  assertEquals(CanonicalNumericIndexString("1e+3"), undefined);
+  assertEquals(CanonicalNumericIndexString("1e25"), undefined);
+});
+
+Deno.test("CanonicalNumericIndexString scientific", () => {
+  assertEquals(CanonicalNumericIndexString("1e-7"), 1e-7);
+  assertEquals(CanonicalNumericIndexString("1e+21"), 1e+21);
+  assertEquals(CanonicalNumericIndexString("-1e-7"), -1e-7);
+  assertEquals(CanonicalNumericIndexString("-1e+21"), -1e+21);
+});
+
+Deno.test("CanonicalNumericIndexString non-finite", () => {
+  assertEquals(CanonicalNumericIndexString("Infinity"), Infinity);
+  assertEquals(CanonicalNumericIndexString("-Infinity"), -Infinity);
+  assertEquals(CanonicalNumericIndexString("NaN"), NaN);
+});
+
+Deno.test("CanonicalNumericIndexString other non-numbers", () => {
+  assertEquals(CanonicalNumericIndexString(""), undefined);
+  assertEquals(CanonicalNumericIndexString("--Infinity"), undefined);
+  assertEquals(CanonicalNumericIndexString("-NaN"), undefined);
+  assertEquals(CanonicalNumericIndexString("toString"), undefined);
 });

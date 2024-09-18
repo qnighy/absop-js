@@ -227,3 +227,26 @@ export function ToPropertyKey(argument: LanguageValue): StrictPropertyKey {
   return typeof key === "symbol" ? key : `${key}`;
   // Alternatively we can Reflect.ownKeys({ [argument]: null })[0]
 }
+
+/**
+ * 7.1.20 ToLength ( argument ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-tolength
+ */
+export function ToLength(argument: LanguageValue): number {
+  return Math.min(Math.max(ToIntegerOrInfinity(argument), 0), 2 ** 53 - 1);
+}
+
+/**
+ * 7.1.21 CanonicalNumericIndexString ( argument ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-tolength
+ */
+export function CanonicalNumericIndexString(
+  argument: string,
+): number | undefined {
+  if (argument === "-0") {
+    return -0;
+  }
+  const number = +argument;
+  if (`${number}` === argument) {
+    return number;
+  }
+  return undefined;
+}
