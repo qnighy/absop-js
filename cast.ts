@@ -224,5 +224,5 @@ export function ToObject(argument: LanguageValue): object {
 export function ToPropertyKey(argument: LanguageValue): StrictPropertyKey {
   const key = ToPrimitive(argument, "STRING");
   return typeof key === "symbol" ? key : `${key}`;
-  // Alternatively we can Object.keys({ [argument]: null })[0]
+  // Alternatively we can Reflect.ownKeys({ [argument]: null })[0]
 }
