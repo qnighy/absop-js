@@ -160,6 +160,7 @@ export function ToUint8Clamp(argument: LanguageValue): number {
   // deno-lint-ignore no-explicit-any
   return Math.max(0, Math.min(255, +(argument as any) || 0)) +
     4503599627370496 - 4503599627370496;
+  // Alternatively we can store it to a Uint8ClampedArray and read it back
 }
 
 /**
