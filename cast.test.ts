@@ -1,5 +1,14 @@
-import { assertEquals, assertThrows } from "@std/assert";
-import { ToPrimitive } from "./cast.ts";
+import { assertEquals, assertStrictEquals, assertThrows } from "@std/assert";
+import {
+  ToBigInt,
+  ToIntegerOrInfinity,
+  ToNumber,
+  ToNumeric,
+  ToObject,
+  ToPrimitive,
+  ToString,
+  ToUint8Clamp,
+} from "./cast.ts";
 
 function toThrow(): never {
   throw new Error("Unexpected call");
@@ -152,5 +161,140 @@ Deno.test("ToPrimitive exotic fail on non-primitive", () => {
       }),
     TypeError,
     "Cannot convert object to primitive value",
+  );
+});
+
+Deno.test("ToNumber fail on BigInt", () => {
+  assertThrows(
+    () => ToNumber(42n),
+    TypeError,
+    "Cannot convert a BigInt value to a number",
+  );
+});
+
+Deno.test("ToNumeric BigInt", () => {
+  assertEquals(ToNumeric(42n), 42n);
+});
+
+Deno.test("ToIntegerOrInfinity fail on BigInt", () => {
+  assertThrows(
+    () => ToIntegerOrInfinity(42n),
+    TypeError,
+    "Cannot convert a BigInt value to a number",
+  );
+});
+
+Deno.test("ToIntegerOrInfinity NaN to 0", () => {
+  assertEquals(ToIntegerOrInfinity(NaN), 0);
+});
+
+Deno.test("ToIntegerOrInfinity -0 to 0", () => {
+  assertStrictEquals(ToIntegerOrInfinity(-0), 0);
+});
+
+Deno.test("ToIntegerOrInfinity round towards zero", () => {
+  assertEquals(ToIntegerOrInfinity(1.9), 1);
+  assertEquals(ToIntegerOrInfinity(-1.9), -1);
+});
+
+Deno.test("ToIntegerOrInfinity large integer", () => {
+  assertEquals(ToIntegerOrInfinity(10000000000000000), 10000000000000000);
+  assertEquals(ToIntegerOrInfinity(-10000000000000000), -10000000000000000);
+});
+
+Deno.test("ToIntegerOrInfinity infinity", () => {
+  assertEquals(ToIntegerOrInfinity(Infinity), Infinity);
+  assertEquals(ToIntegerOrInfinity(-Infinity), -Infinity);
+});
+
+Deno.test("ToUint8Clamp round nearest to even", () => {
+  assertEquals(ToUint8Clamp(0.49999), 0);
+  assertEquals(ToUint8Clamp(0.5), 0);
+  assertEquals(ToUint8Clamp(0.50001), 1);
+  assertEquals(ToUint8Clamp(1.49999), 1);
+  assertEquals(ToUint8Clamp(1.5), 2);
+  assertEquals(ToUint8Clamp(1.50001), 2);
+});
+
+Deno.test("ToUint8Clamp clamping", () => {
+  assertEquals(ToUint8Clamp(-Infinity), 0);
+  assertEquals(ToUint8Clamp(-(2 ** 53)), 0);
+  assertEquals(ToUint8Clamp(2 ** 53), 255);
+  assertEquals(ToUint8Clamp(Infinity), 255);
+});
+
+Deno.test("ToUint8Clamp NaN", () => {
+  assertEquals(ToUint8Clamp(NaN), 0);
+});
+
+Deno.test("ToUint8Clamp -0", () => {
+  assertStrictEquals(ToUint8Clamp(-0), 0);
+});
+
+Deno.test("ToBigInt large", () => {
+  assertEquals(
+    ToBigInt(123456789012345678901234567890123456789012345678901234567890n),
+    123456789012345678901234567890123456789012345678901234567890n,
+  );
+  assertEquals(
+    ToBigInt(-123456789012345678901234567890123456789012345678901234567890n),
+    -123456789012345678901234567890123456789012345678901234567890n,
+  );
+});
+
+Deno.test("ToBigInt fails on number", () => {
+  assertThrows(
+    () => ToBigInt(42),
+    TypeError,
+    "Cannot convert 42 to a BigInt",
+  );
+});
+
+Deno.test("ToBigInt method call count", () => {
+  let count = 0;
+  assertEquals(
+    ToBigInt({
+      valueOf() {
+        count++;
+        return 42n;
+      },
+    }),
+    42n,
+  );
+  assertEquals(count, 1);
+
+  count = 0;
+  assertThrows(
+    () =>
+      ToBigInt({
+        valueOf() {
+          count++;
+          return 42;
+        },
+      }),
+    TypeError,
+    "Cannot convert 42 to a BigInt",
+  );
+  assertEquals(count, 1);
+});
+
+Deno.test("ToString fails on Symbol", () => {
+  assertThrows(
+    () => ToString(Symbol.iterator),
+    TypeError,
+    "Cannot convert a Symbol value to a string",
+  );
+});
+
+Deno.test("ToObject fails on null and undefined", () => {
+  assertThrows(
+    () => ToObject(undefined),
+    TypeError,
+    "Cannot convert undefined or null to object",
+  );
+  assertThrows(
+    () => ToObject(null),
+    TypeError,
+    "Cannot convert undefined or null to object",
   );
 });

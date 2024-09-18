@@ -211,7 +211,7 @@ export function ToString(argument: LanguageValue): string {
 /**
  * 7.1.18 ToObject ( argument ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-toobject
  */
-export function toObject(argument: LanguageValue): object {
+export function ToObject(argument: LanguageValue): object {
   if (argument == null) {
     throw new TypeError("Cannot convert undefined or null to object");
   }
@@ -221,7 +221,8 @@ export function toObject(argument: LanguageValue): object {
 /**
  * 7.1.19 ToPropertyKey ( argument ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-topropertykey
  */
-export function toPropertyKey(argument: LanguageValue): StrictPropertyKey {
+export function ToPropertyKey(argument: LanguageValue): StrictPropertyKey {
   const key = ToPrimitive(argument, "STRING");
   return typeof key === "symbol" ? key : `${key}`;
+  // Alternatively we can Object.keys({ [argument]: null })[0]
 }

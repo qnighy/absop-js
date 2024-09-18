@@ -1,4 +1,4 @@
-import { toObject, toPropertyKey } from "./cast.ts";
+import { ToObject, ToPropertyKey } from "./cast.ts";
 import { type LanguageValue, type WrappedLanguageValue } from "./langtypes.ts";
 import { isPropertyKey, type StrictPropertyKey } from "./object.ts";
 
@@ -101,13 +101,13 @@ export function GetValue(
     throw new ReferenceError(`${v.referencedName} is not defined`);
   }
   if (v.base.type === "LanguageValue") {
-    const baseObj = toObject(v.base.value);
+    const baseObj = ToObject(v.base.value);
     if (v.referencedName.type === "PrivateName") {
       throw new Error("TODO: PrivateName");
     }
     let referencedName = v.referencedName.value;
     if (!isPropertyKey(referencedName)) {
-      v.referencedName.value = referencedName = toPropertyKey(referencedName);
+      v.referencedName.value = referencedName = ToPropertyKey(referencedName);
     }
     return Reflect.get(
       baseObj,
