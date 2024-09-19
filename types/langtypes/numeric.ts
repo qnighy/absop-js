@@ -1,15 +1,9 @@
+/**
+ * 6.1.6 Numeric Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-numeric-types
+ */
+
 export {
-  isBigInt,
-  isBoolean,
-  isNull,
   isNumber,
-  isObject,
-  isPropertyKey,
-  isPropertyName,
-  isString,
-  isSymbol,
-  isUndefined,
-  type LanguageValue,
   Number_add,
   Number_bitwiseAND,
   Number_bitwiseNOT,
@@ -30,10 +24,4 @@ export {
   Number_unaryMinus,
   Number_unsignedRightShift,
   NumberBitwiseOp,
-  type PropertyName,
-  type StrictPropertyKey,
-  StringIndexOf,
-  StringLastIndexOf,
-  type WrappedLanguageValue,
-} from "./types.ts";
-export {} from "./object.ts";
+} from "./numeric/number.ts";

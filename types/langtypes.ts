@@ -2,6 +2,30 @@
  * 6.1 ECMAScript Language Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types
  */
 
+export {
+  isNumber,
+  Number_add,
+  Number_bitwiseAND,
+  Number_bitwiseNOT,
+  Number_bitwiseOR,
+  Number_bitwiseXOR,
+  Number_divide,
+  Number_equal,
+  Number_exponentiate,
+  Number_leftShift,
+  Number_lessThan,
+  Number_multiply,
+  Number_remainder,
+  Number_sameValue,
+  Number_sameValueZero,
+  Number_signedRightShift,
+  Number_subtract,
+  Number_toString,
+  Number_unaryMinus,
+  Number_unsignedRightShift,
+  NumberBitwiseOp,
+} from "./langtypes/numeric.ts";
+
 /**
  * 6.1 ECMAScript Language Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types
  *
@@ -110,20 +134,6 @@ export function StringLastIndexOf(
 export function isSymbol(value: unknown): value is symbol {
   // Use typeof https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-typeof-operator-runtime-semantics-evaluation
   return typeof value === "symbol";
-}
-
-/**
- * 6.1.6.1 The Number Type https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types-number-type
- *
- * > The Number type has exactly 18,437,736,874,454,810,627 (that is, 2**64 - 2**53 + 3) values,
- * > representing the double-precision floating point IEEE 754-2019 binary64 values as specified
- * > in the IEEE Standard for Binary Floating-Point Arithmetic, except that
- * > the 9,007,199,254,740,990 (that is, 2**53 - 2) distinct “Not-a-Number” values
- * > of the IEEE Standard are represented in ECMAScript as a single special NaN value.
- */
-export function isNumber(value: unknown): value is number {
-  // Use typeof https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-typeof-operator-runtime-semantics-evaluation
-  return typeof value === "number";
 }
 
 /**
