@@ -45,6 +45,8 @@ export {
   IsArray,
   IsCallable,
   IsConstructor,
+  IsExtensible,
+  IsRegExp,
   OrdinaryToPrimitive,
   type Primitive,
   RequireObjectCoercible,

@@ -40,5 +40,7 @@ export {
   Get,
   GetMethod,
   GetV,
+  IsExtensible,
+  IsRegExp,
   // TODO: add more
 } from "./absops/object.ts";
