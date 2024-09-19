@@ -275,3 +275,23 @@ export function CanonicalNumericIndexString(
   }
   return undefined;
 }
+
+/**
+ * 7.1.22 ToIndex ( value ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-toindex
+ *
+ * @param message typical values are:
+ *   - "Invalid value: not (convertible to) a safe integer" for general use
+ *   - "Invalid typed array length" for TypedArray
+ *   - "Invalid array buffer length" for ArrayBuffer and SharedArrayBuffer
+ *   - "Invalid DataView length" for DataView
+ */
+export function ToIndex(
+  value: LanguageValue,
+  message: string = "Invalid value: not (convertible to) a safe integer",
+): number {
+  const integerIndex = ToIntegerOrInfinity(value);
+  if (integerIndex < 0 || !Number.isSafeInteger(integerIndex)) {
+    throw new RangeError(message);
+  }
+  return integerIndex;
+}
