@@ -1,5 +1,9 @@
 /**
  * 6.1 ECMAScript Language Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types
+ */
+
+/**
+ * 6.1 ECMAScript Language Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types
  *
  * > An ECMAScript language value is a value that is characterized by an ECMAScript language type.
  */
