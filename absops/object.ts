@@ -7,6 +7,7 @@ import {
   type LanguageValue,
   type StrictPropertyKey,
 } from "../types.ts";
+import { ToPrimitive } from "./cast.ts";
 
 export function Get(o: object, p: StrictPropertyKey): LanguageValue {
   // deno-lint-ignore no-explicit-any
@@ -103,4 +104,83 @@ function hasRegExpMatcher(obj: object): boolean {
     }
   }
   return hasSlot;
+}
+
+/**
+ * 7.2.7 Static Semantics: IsStringWellFormedUnicode ( string ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-isstringwellformedunicode
+ */
+export function IsStringWellFormedUnicode(string: string): boolean {
+  return string.isWellFormed();
+}
+
+/**
+ * 7.2.8 SameType ( x, y ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-sametype
+ */
+export function SameType(x: unknown, y: unknown): boolean {
+  const xt = typeof x;
+  const yt = typeof y;
+  if (xt === "object" || yt === "object") {
+    if (xt === null || yt === null) {
+      return xt === yt;
+    } else {
+      return (xt === "object" || xt === "function") &&
+        (yt === "object" || yt === "function");
+    }
+  } else {
+    return xt === yt;
+  }
+}
+
+/**
+ * 7.2.9 SameValue ( x, y ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-samevalue
+ */
+export function SameValue(x: LanguageValue, y: LanguageValue): boolean {
+  return Object.is(x, y);
+}
+
+/**
+ * 7.2.10 SameValueZero ( x, y ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-samevaluezero
+ */
+export function SameValueZero(x: LanguageValue, y: LanguageValue): boolean {
+  return x === y ||
+    (typeof x === "number" && typeof y === "number" && Number.isNaN(x) &&
+      Number.isNaN(y));
+}
+
+/**
+ * 7.2.12 IsLessThan ( x, y, LeftFirst ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islessthan
+ */
+export function IsLessThan(
+  x: LanguageValue,
+  y: LanguageValue,
+  leftFirst: boolean,
+): boolean | undefined {
+  // This is x < y ? true : x >= y ? false : undefined but without the side effects.
+  // There seems no smart way to implement it without ToPrimitive.
+
+  // deno-lint-ignore no-explicit-any
+  let px: any, py: any;
+  if (leftFirst) {
+    px = ToPrimitive(x, "NUMBER");
+    py = ToPrimitive(y, "NUMBER");
+  } else {
+    py = ToPrimitive(y, "NUMBER");
+    px = ToPrimitive(x, "NUMBER");
+  }
+  // Now we are free from side effects.
+  return px < py ? true : px >= py ? false : undefined;
+}
+
+/**
+ * 7.2.13 IsLooselyEqual ( x, y ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islooselyequal
+ */
+export function IsLooselyEqual(x: LanguageValue, y: LanguageValue): boolean {
+  return x == y;
+}
+
+/**
+ * 7.2.14 IsStrictlyEqual ( x, y ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-isstrictlyequal
+ */
+export function IsStrictlyEqual(x: LanguageValue, y: LanguageValue): boolean {
+  return x === y;
 }

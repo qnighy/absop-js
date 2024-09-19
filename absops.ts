@@ -41,6 +41,12 @@ export {
   GetMethod,
   GetV,
   IsExtensible,
+  IsLessThan,
+  IsLooselyEqual,
   IsRegExp,
-  // TODO: add more
+  IsStrictlyEqual,
+  IsStringWellFormedUnicode,
+  SameType,
+  SameValue,
+  SameValueZero,
 } from "./absops/object.ts";
