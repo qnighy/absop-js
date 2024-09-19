@@ -32,21 +32,21 @@ export {
   IsArray,
   IsCallable,
   IsConstructor,
-  RequireObjectCoercible,
-  // TODO: add more
-} from "./absops/compare.ts";
-export {
-  Call,
-  Get,
-  GetMethod,
-  GetV,
   IsExtensible,
   IsLessThan,
   IsLooselyEqual,
   IsRegExp,
   IsStrictlyEqual,
   IsStringWellFormedUnicode,
+  RequireObjectCoercible,
   SameType,
   SameValue,
   SameValueZero,
+} from "./absops/compare.ts";
+export {
+  Call,
+  Get,
+  GetMethod,
+  GetV,
+  // TODO: add more
 } from "./absops/object.ts";
