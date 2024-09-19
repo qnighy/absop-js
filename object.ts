@@ -1,4 +1,4 @@
-import { type LanguageValue, type StrictPropertyKey } from "./langtypes.ts";
+import { type LanguageValue, type StrictPropertyKey } from "./types.ts";
 
 export function Get(o: object, p: StrictPropertyKey): LanguageValue {
   // deno-lint-ignore no-explicit-any

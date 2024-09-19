@@ -15,7 +15,7 @@ export {
   StringIndexOf,
   StringLastIndexOf,
   type WrappedLanguageValue,
-} from "./langtypes.ts";
+} from "./types.ts";
 export {
   // 6.1.6.1.7 Number::add
   Number_add,
