@@ -1,31 +1,21 @@
 export {
-  // 6.1.6.2 The BigInt Type
   isBigInt,
-  // 6.1.3 The Boolean Type
   isBoolean,
-  // 6.1.2 The Null Type
   isNull,
-  // 6.1.6.1 The Number Type
   isNumber,
-  // 6.1.7 The Object Type
   isObject,
-  // 6.1.4 The String Type
+  isPropertyKey,
+  isPropertyName,
   isString,
-  // 6.1.5 The Symbol Type
   isSymbol,
-  // 6.1.1 The Undefined Type
   isUndefined,
-  // 6.1 ECMAScript Language Types
   type LanguageValue,
-  // 6.1 ECMAScript Language Types
+  type PropertyName,
+  type StrictPropertyKey,
+  StringIndexOf,
+  StringLastIndexOf,
   type WrappedLanguageValue,
 } from "./langtypes.ts";
-export {
-  // 6.1.4.1 StringIndexOf
-  StringIndexOf,
-  // 6.1.4.2 StringLastIndexOf
-  StringLastIndexOf,
-} from "./string.ts";
 export {
   // 6.1.6.1.7 Number::add
   Number_add,
@@ -68,9 +58,4 @@ export {
   // 6.1.6.1.16 NumberBitwiseOp
   NumberBitwiseOp,
 } from "./number.ts";
-export {
-  // In 6.1.7, property key
-  isPropertyKey,
-  // In 6.1.7, property name
-  isPropertyName,
-} from "./object.ts";
+export {} from "./object.ts";

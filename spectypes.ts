@@ -1,6 +1,10 @@
 import { ToObject, ToPropertyKey } from "./cast.ts";
-import { type LanguageValue, type WrappedLanguageValue } from "./langtypes.ts";
-import { isPropertyKey, type StrictPropertyKey } from "./object.ts";
+import {
+  isPropertyKey,
+  type LanguageValue,
+  type StrictPropertyKey,
+  type WrappedLanguageValue,
+} from "./langtypes.ts";
 
 export type SpecValue = unknown;
 

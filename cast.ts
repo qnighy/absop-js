@@ -1,5 +1,9 @@
-import { isObject, type LanguageValue } from "./langtypes.ts";
-import { Call, GetMethod, type StrictPropertyKey } from "./object.ts";
+import {
+  isObject,
+  type LanguageValue,
+  type StrictPropertyKey,
+} from "./langtypes.ts";
+import { Call, GetMethod } from "./object.ts";
 
 export type Primitive =
   | undefined

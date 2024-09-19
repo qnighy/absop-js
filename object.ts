@@ -1,39 +1,4 @@
-import { type LanguageValue } from "./langtypes.ts";
-
-/**
- * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ispropertykey
- *
- * > A property key is either a String or a Symbol.
- *
- * To distinguish from TypeScript's PropertyKey, it is deliberately
- * named StrictPropertyKey.
- */
-export type StrictPropertyKey = string | symbol;
-
-/**
- * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ispropertykey
- *
- * > A property key is either a String or a Symbol.
- */
-export function isPropertyKey(value: unknown): value is StrictPropertyKey {
-  return typeof value === "string" || typeof value === "symbol";
-}
-
-/**
- * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#property-name
- *
- * > A property name is a property key that is a String.
- */
-export type PropertyName = string;
-
-/**
- * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#property-name
- *
- * > A property name is a property key that is a String.
- */
-export function isPropertyName(value: unknown): value is string {
-  return typeof value === "string";
-}
+import { type LanguageValue, type StrictPropertyKey } from "./langtypes.ts";
 
 export function Get(o: object, p: StrictPropertyKey): LanguageValue {
   // deno-lint-ignore no-explicit-any
