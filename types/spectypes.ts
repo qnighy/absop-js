@@ -2,7 +2,7 @@
  * 6.2 ECMAScript Specification Types https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-specification-types
  */
 
-import { ToObject, ToPropertyKey } from "../cast.ts";
+import { ToObject, ToPropertyKey } from "../absops.ts";
 import {
   isPropertyKey,
   type LanguageValue,

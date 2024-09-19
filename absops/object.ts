@@ -1,4 +1,8 @@
-import { type LanguageValue, type StrictPropertyKey } from "./types.ts";
+/**
+ * 7.3 Operations on Objects https://tc39.es/ecma262/multipage/abstract-operations.html#sec-operations-on-objects
+ */
+
+import { type LanguageValue, type StrictPropertyKey } from "../types.ts";
 
 export function Get(o: object, p: StrictPropertyKey): LanguageValue {
   // deno-lint-ignore no-explicit-any

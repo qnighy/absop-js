@@ -6,7 +6,7 @@ import {
   isObject,
   type LanguageValue,
   type StrictPropertyKey,
-} from "./types.ts";
+} from "../types.ts";
 import { Call, GetMethod } from "./object.ts";
 
 export type Primitive =

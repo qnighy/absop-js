@@ -2,7 +2,7 @@
  * 7.2 Testing and Comparison Operations https://tc39.es/ecma262/multipage/abstract-operations.html#sec-testing-and-comparison-operations
  */
 
-import { type LanguageValue } from "./types.ts";
+import { type LanguageValue } from "../types.ts";
 
 /**
  * 7.2.1 RequireObjectCoercible ( argument ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-requireobjectcoercible
