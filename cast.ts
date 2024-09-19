@@ -245,6 +245,31 @@ export function CanonicalNumericIndexString(
     return -0;
   }
   const number = +argument;
+  if (number && argument.length <= 4) {
+    // Fast path (not important for correctness)
+    // Handle cases for small enough integers except 0.
+    // 0 is already fast for some reason (tested in V8)
+    const len = argument.length;
+    let i = 0;
+    if (argument.charCodeAt(i) === 0x2D) {
+      i++;
+    }
+    if (argument.charCodeAt(i) >= 0x31 && argument.charCodeAt(i) <= 0x39) {
+      i++;
+      while (true) {
+        if (i < len) {
+          const ch = argument.charCodeAt(i);
+          if (ch >= 0x30 && ch <= 0x39) {
+            i++;
+          } else {
+            break;
+          }
+        } else {
+          return number;
+        }
+      }
+    }
+  }
   if (`${number}` === argument) {
     return number;
   }
