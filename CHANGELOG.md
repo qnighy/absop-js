@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.1.0] - 2024-09-20
+
 ### Added
 
 - v0.1.0 Initial release.
+
+[Unreleased]: https://github.com/qnighy/absop-js/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/qnighy/absop-jsg/releases/tag/v0.1.0
