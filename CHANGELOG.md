@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix release by declaring a license
+
 ## [0.1.0] - 2024-09-20
 
 ### Added
