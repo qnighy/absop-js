@@ -1,9 +1,7 @@
 {
   "name": "@qnighy/absop",
   "version": "0.1.0",
-  "exports": {
-    ".": "./main.ts"
-  },
+  "exports": "./main.ts",
   "imports": {
     "@std/assert": "jsr:@std/assert@1"
   },
