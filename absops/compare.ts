@@ -3,6 +3,7 @@
  */
 
 import { isObject, type LanguageValue } from "../types.ts";
+import type { ObjectRecord } from "../utils.ts";
 import { ToPrimitive } from "./cast.ts";
 
 /**
@@ -76,8 +77,7 @@ export function IsRegExp(argument: unknown): boolean {
   if (!isObject(argument)) {
     return false;
   }
-  // deno-lint-ignore no-explicit-any
-  const matcher = (argument as any)[Symbol.match];
+  const matcher = (argument as ObjectRecord)[Symbol.match];
   if (matcher !== undefined) {
     return !!matcher;
   }
@@ -96,8 +96,7 @@ function hasRegExpMatcher(obj: object): boolean {
         // from ToString() call.
         throw new TypeError();
       },
-      // deno-lint-ignore no-explicit-any
-    } as any);
+    } as unknown as string);
   } catch (e) {
     if (!(e instanceof TypeError)) {
       throw e;
@@ -158,14 +157,13 @@ export function IsLessThan(
   // This is x < y ? true : x >= y ? false : undefined but without the side effects.
   // There seems no smart way to implement it without ToPrimitive.
 
-  // deno-lint-ignore no-explicit-any
-  let px: any, py: any;
+  let px: number, py: number;
   if (leftFirst) {
-    px = ToPrimitive(x, "NUMBER");
-    py = ToPrimitive(y, "NUMBER");
+    px = ToPrimitive(x, "NUMBER") as number;
+    py = ToPrimitive(y, "NUMBER") as number;
   } else {
-    py = ToPrimitive(y, "NUMBER");
-    px = ToPrimitive(x, "NUMBER");
+    py = ToPrimitive(y, "NUMBER") as number;
+    px = ToPrimitive(x, "NUMBER") as number;
   }
   // Now we are free from side effects.
   return px < py ? true : px >= py ? false : undefined;
