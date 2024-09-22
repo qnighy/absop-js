@@ -90,3 +90,18 @@ export {
   ToUint8,
   ToUint8Clamp,
 } from "./absops.ts";
+export {
+  $ArrayIteratorPrototype$,
+  $AsyncFunction$,
+  $AsyncGeneratorFunction$,
+  $AsyncGeneratorPrototype$,
+  $AsyncIteratorPrototype$,
+  $GeneratorFunction$,
+  $GeneratorPrototype$,
+  $IteratorPrototype$,
+  $MapIteratorPrototype$,
+  $RegExpStringIteratorPrototype$,
+  $SetIteratorPrototype$,
+  $ThrowTypeError$,
+  $TypedArray$,
+} from "./intrinsics.ts";
