@@ -120,6 +120,22 @@ export function isObject(value: unknown): value is object {
 }
 
 /**
+ * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#function-object
+ *
+ * > A function object is an object that supports the [[Call]] internal method.
+ */
+// deno-lint-ignore no-explicit-any
+export type FunctionObject = (...args: any[]) => any;
+
+/**
+ * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#constructor
+ *
+ * > A constructor is an object that supports the [[Construct]] internal method.
+ */
+// deno-lint-ignore no-explicit-any
+export type Constructor = new (...args: any[]) => any;
+
+/**
  * https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ispropertykey
  *
  * > A property key is either a String or a Symbol.

@@ -7,7 +7,7 @@ import {
   type LanguageValue,
   type StrictPropertyKey,
 } from "../types.ts";
-import { Call, GetMethod } from "./object.ts";
+import { GetMethod } from "./object.ts";
 
 export type Primitive =
   | undefined
@@ -33,7 +33,7 @@ export function ToPrimitive(
         : preferredType === "NUMBER"
         ? "number"
         : "default";
-      const result = Call(
+      const result = Reflect.apply(
         exoticToPrim as (this: unknown, hint: string) => unknown,
         input,
         [hint],
@@ -64,7 +64,7 @@ export function OrdinaryToPrimitive(
   for (const name of methodNames) {
     const method = o[name];
     if (typeof method === "function") {
-      const result = Call(method, o);
+      const result = Reflect.apply(method, o, []);
       if (!isObject(result)) {
         return result;
       }

@@ -45,8 +45,17 @@ export {
 } from "./absops/compare.ts";
 export {
   Call,
+  Construct,
+  CreateDataProperty,
+  CreateDataPropertyOrThrow,
+  CreateNonEnumerableDataPropertyOrThrow,
+  DefinePropertyOrThrow,
+  DeletePropertyOrThrow,
   Get,
   GetMethod,
   GetV,
+  HasOwnProperty,
+  HasProperty,
+  Set,
   // TODO: add more
 } from "./absops/object.ts";

@@ -3,6 +3,8 @@
  */
 
 export {
+  type Constructor,
+  type FunctionObject,
   isBigInt,
   isBoolean,
   isNull,

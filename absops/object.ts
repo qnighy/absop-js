@@ -2,7 +2,11 @@
  * 7.3 Operations on Objects https://tc39.es/ecma262/multipage/abstract-operations.html#sec-operations-on-objects
  */
 
-import type { LanguageValue, StrictPropertyKey } from "../types.ts";
+import type {
+  Constructor,
+  LanguageValue,
+  StrictPropertyKey,
+} from "../types.ts";
 import type { ObjectRecord } from "../utils.ts";
 
 /**
@@ -36,6 +40,76 @@ export function Set(
   }
 }
 
+/**
+ * 7.3.5 CreateDataProperty ( O, P, V ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-createdataproperty
+ */
+export function CreateDataProperty(
+  o: object,
+  p: StrictPropertyKey,
+  v: LanguageValue,
+): boolean {
+  return Reflect.defineProperty(o, p, {
+    value: v,
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  });
+}
+
+/**
+ * 7.3.6 CreateDataPropertyOrThrow ( O, P, V ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-createdatapropertyorthrow
+ */
+export function CreateDataPropertyOrThrow(
+  o: object,
+  p: StrictPropertyKey,
+  v: LanguageValue,
+): void {
+  Object.defineProperty(o, p, {
+    value: v,
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  });
+}
+
+/**
+ * 7.3.7 CreateNonEnumerableDataPropertyOrThrow ( O, P, V ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-createnonenumerabledatapropertyorthrow
+ */
+export function CreateNonEnumerableDataPropertyOrThrow(
+  o: object,
+  p: StrictPropertyKey,
+  v: LanguageValue,
+): void {
+  Object.defineProperty(o, p, {
+    value: v,
+    writable: true,
+    enumerable: false,
+    configurable: true,
+  });
+}
+
+/**
+ * 7.3.8 DefinePropertyOrThrow ( O, P, desc ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-definepropertyorthrow
+ */
+export function DefinePropertyOrThrow(
+  o: object,
+  p: StrictPropertyKey,
+  desc: PropertyDescriptor,
+): void {
+  Object.defineProperty(o, p, desc);
+}
+
+/**
+ * 7.3.9 DeletePropertyOrThrow ( O, P ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-deletepropertyorthrow
+ */
+export function DeletePropertyOrThrow(o: object, p: StrictPropertyKey): void {
+  // Note that we are in a strict mode.
+  delete (o as ObjectRecord)[p];
+}
+
+/**
+ * 7.3.10 GetMethod ( V, P ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-deletepropertyorthrow
+ */
 export function GetMethod(
   v: LanguageValue,
   p: StrictPropertyKey,
@@ -57,18 +131,38 @@ export function GetMethod(
   return func as ((...args: unknown[]) => unknown);
 }
 
-// deno-lint-ignore no-explicit-any
-export function Call<T, A extends any[], R>(
-  f: (this: T, ...args: A) => R,
-  v: T,
-  argumentsList: A,
-): R;
-export function Call<T, R>(f: (this: T, ...args: []) => R, v: T): R;
-// deno-lint-ignore no-explicit-any
-export function Call<T, A extends any[], R>(
-  f: (this: T, ...args: A) => R,
-  v: T,
-  argumentsList: A = [] as unknown as A,
-): R {
-  return Function.prototype.apply.call(f, v, argumentsList);
+/**
+ * 7.3.11 HasProperty ( O, P ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-hasproperty
+ */
+export function HasProperty(o: object, p: StrictPropertyKey): boolean {
+  return p in o;
+}
+
+/**
+ * 7.3.12 HasOwnProperty ( O, P ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-hasownproperty
+ */
+export function HasOwnProperty(o: object, p: StrictPropertyKey): boolean {
+  return Object.hasOwn(o, p);
+}
+
+/**
+ * 7.3.13 Call ( F, V [ , argumentsList ] ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-call
+ */
+export function Call(
+  f: LanguageValue,
+  v: LanguageValue,
+  argumentsList: LanguageValue[] = [],
+): LanguageValue {
+  return Reflect.apply(f as (...args: unknown[]) => unknown, v, argumentsList);
+}
+
+/**
+ * 7.3.14 Construct ( F [ , argumentsList [ , newTarget ] ] ) https://tc39.es/ecma262/multipage/abstract-operations.html#sec-call
+ */
+export function Construct(
+  f: Constructor,
+  argumentsList: LanguageValue[] = [],
+  newTarget?: Constructor,
+): object {
+  return Reflect.construct(f, argumentsList, newTarget);
 }
